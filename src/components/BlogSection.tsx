@@ -1,8 +1,10 @@
 import { motion } from "framer-motion";
 import { ArrowRight, Calendar } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const articles = [
   {
+    slug: "professii-budushchego",
     tag: "Карьера",
     title: "10 профессий будущего, которые стоит рассмотреть уже сейчас",
     excerpt: "Рынок труда стремительно меняется. Узнай, какие специальности будут востребованы через 5-10 лет.",
@@ -10,6 +12,7 @@ const articles = [
     image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600&h=400&fit=crop",
   },
   {
+    slug: "kak-vybrat-vuz",
     tag: "Образование",
     title: "Как выбрать вуз: пошаговое руководство для абитуриентов",
     excerpt: "Практические советы по выбору университета, которые помогут принять правильное решение.",
@@ -17,6 +20,7 @@ const articles = [
     image: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=600&h=400&fit=crop",
   },
   {
+    slug: "soft-skills",
     tag: "Саморазвитие",
     title: "Soft skills, которые нужны в любой профессии",
     excerpt: "Какие навыки ценят работодатели больше всего и как их развить ещё во время учёбы.",
@@ -36,6 +40,8 @@ const item = {
 };
 
 const BlogSection = () => {
+  const navigate = useNavigate();
+
   return (
     <section id="blog" className="py-24 bg-secondary/50">
       <div className="container mx-auto px-4">
@@ -52,12 +58,12 @@ const BlogSection = () => {
               Полезные статьи
             </h2>
           </div>
-          <a
-            href="#"
+          <button
+            onClick={() => navigate("/blog/professii-budushchego")}
             className="hidden md:flex items-center gap-2 text-accent font-semibold hover:gap-3 transition-all"
           >
             Все статьи <ArrowRight className="h-5 w-5" />
-          </a>
+          </button>
         </motion.div>
 
         <motion.div
@@ -71,6 +77,7 @@ const BlogSection = () => {
             <motion.article
               key={article.title}
               variants={item}
+              onClick={() => navigate(`/blog/${article.slug}`)}
               className="group bg-card rounded-2xl overflow-hidden border border-border hover:shadow-xl transition-all duration-300 cursor-pointer hover:-translate-y-1"
             >
               <div className="aspect-[3/2] overflow-hidden">

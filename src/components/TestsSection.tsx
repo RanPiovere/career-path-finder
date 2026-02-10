@@ -1,10 +1,12 @@
 import { motion } from "framer-motion";
 import { Clock, ArrowRight, Brain, Target, Compass, Lightbulb } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const tests = [
   {
     icon: Brain,
     title: "Тип личности",
+    slug: "tip-lichnosti",
     description: "Определи свой тип личности и узнай, какие профессии тебе подходят.",
     duration: "15 мин",
     color: "from-blue-500/10 to-indigo-500/10",
@@ -13,6 +15,7 @@ const tests = [
   {
     icon: Target,
     title: "Профессиональные интересы",
+    slug: "professionalnye-interesy",
     description: "Выяви свои главные профессиональные интересы и склонности.",
     duration: "10 мин",
     color: "from-emerald-500/10 to-teal-500/10",
@@ -21,6 +24,7 @@ const tests = [
   {
     icon: Compass,
     title: "Карьерный компас",
+    slug: "kariernyj-kompas",
     description: "Узнай, в каком направлении двигаться для успешной карьеры.",
     duration: "20 мин",
     color: "from-orange-500/10 to-amber-500/10",
@@ -29,6 +33,7 @@ const tests = [
   {
     icon: Lightbulb,
     title: "Навыки и таланты",
+    slug: "navyki-i-talanty",
     description: "Оцени свои сильные стороны и узнай, где они востребованы.",
     duration: "12 мин",
     color: "from-purple-500/10 to-pink-500/10",
@@ -47,6 +52,8 @@ const item = {
 };
 
 const TestsSection = () => {
+  const navigate = useNavigate();
+
   return (
     <section id="tests" className="py-24">
       <div className="container mx-auto px-4">
@@ -77,6 +84,7 @@ const TestsSection = () => {
             <motion.div
               key={test.title}
               variants={item}
+              onClick={() => navigate(`/test/${test.slug}`)}
               className={`group relative bg-card rounded-2xl border ${test.borderColor} p-6 cursor-pointer hover:shadow-xl transition-all duration-300 hover:-translate-y-1`}
             >
               <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${test.color} flex items-center justify-center mb-5`}>
