@@ -1,6 +1,20 @@
 import { BookOpen, Newspaper, FlaskConical, Users } from "lucide-react";
+import { useNavigate, useLocation } from "react-router-dom";
+import { scrollToSection } from "@/lib/scroll";
 
 const Footer = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const handleNav = (sectionId: string) => {
+    if (location.pathname !== "/") {
+      navigate("/");
+      setTimeout(() => scrollToSection(sectionId), 300);
+    } else {
+      scrollToSection(sectionId);
+    }
+  };
+
   return (
     <footer id="about" className="bg-primary text-primary-foreground py-16">
       <div className="container mx-auto px-4">
@@ -18,19 +32,19 @@ const Footer = () => {
             <h4 className="font-display font-semibold mb-4">Разделы</h4>
             <ul className="space-y-3">
               {[
-                { label: "Тесты", icon: FlaskConical },
-                { label: "Блог", icon: BookOpen },
-                { label: "Новости", icon: Newspaper },
-                { label: "О нас", icon: Users },
+                { label: "Тесты", id: "tests", icon: FlaskConical },
+                { label: "Блог", id: "blog", icon: BookOpen },
+                { label: "Новости", id: "news", icon: Newspaper },
+                { label: "О нас", id: "about", icon: Users },
               ].map((link) => (
                 <li key={link.label}>
-                  <a
-                    href={`#${link.label.toLowerCase()}`}
+                  <button
+                    onClick={() => handleNav(link.id)}
                     className="text-primary-foreground/60 hover:text-accent transition-colors flex items-center gap-2 text-sm"
                   >
                     <link.icon className="h-4 w-4" />
                     {link.label}
-                  </a>
+                  </button>
                 </li>
               ))}
             </ul>

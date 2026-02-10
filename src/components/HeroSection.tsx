@@ -1,18 +1,14 @@
 import { motion } from "framer-motion";
 import { ArrowRight, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { scrollToSection } from "@/lib/scroll";
 import heroBg from "@/assets/hero-bg.jpg";
 
 const HeroSection = () => {
   return (
     <section className="relative min-h-[90vh] flex items-center overflow-hidden">
-      {/* Background */}
       <div className="absolute inset-0">
-        <img
-          src={heroBg}
-          alt=""
-          className="w-full h-full object-cover"
-        />
+        <img src={heroBg} alt="" className="w-full h-full object-cover" />
         <div className="absolute inset-0" style={{ background: "var(--hero-gradient)", opacity: 0.92 }} />
       </div>
 
@@ -54,18 +50,27 @@ const HeroSection = () => {
             transition={{ duration: 0.7, delay: 0.65 }}
             className="flex flex-wrap gap-4"
           >
-            <Button variant="hero" size="lg" className="text-base px-8 py-6 rounded-xl">
+            <Button
+              variant="hero"
+              size="lg"
+              className="text-base px-8 py-6 rounded-xl"
+              onClick={() => scrollToSection("tests")}
+            >
               Пройти тест
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
-            <Button variant="hero-outline" size="lg" className="text-base px-8 py-6 rounded-xl">
+            <Button
+              variant="hero-outline"
+              size="lg"
+              className="text-base px-8 py-6 rounded-xl"
+              onClick={() => scrollToSection("about")}
+            >
               Узнать больше
             </Button>
           </motion.div>
         </div>
       </div>
 
-      {/* Decorative shapes */}
       <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-background to-transparent" />
     </section>
   );
