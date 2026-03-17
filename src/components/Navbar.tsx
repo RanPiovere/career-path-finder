@@ -1,28 +1,26 @@
 import { motion } from "framer-motion";
 import { ArrowRight, BookOpen, Newspaper, FlaskConical, Users, Menu, X } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { scrollToSection } from "@/lib/scroll";
 import { useState } from "react";
+import { useAuth } from "@/context/AuthContext";
 
 const navItems = [
-  { label: "Тесты", href: "tests", icon: FlaskConical },
-  { label: "Блог", href: "blog", icon: BookOpen },
-  { label: "Новости", href: "news", icon: Newspaper },
-  { label: "О нас", href: "about", icon: Users },
+  { label: "Тесты", to: "/test", icon: FlaskConical },
+  { label: "Блог", to: "/blog", icon: BookOpen },
+  { label: "Новости", to: "/news", icon: Newspaper },
+  { label: "О нас", to: "/", icon: Users },
 ];
 
 const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const { user, logout } = useAuth();
 
-  const handleNav = (sectionId: string) => {
+  const handlePrimaryNav = (to: string) => {
     setMobileOpen(false);
-    if (location.pathname !== "/") {
-      navigate("/");
-      setTimeout(() => scrollToSection(sectionId), 300);
-    } else {
-      scrollToSection(sectionId);
+    if (location.pathname !== to) {
+      navigate(to);
     }
   };
 
@@ -41,7 +39,7 @@ const Navbar = () => {
           {navItems.map((item) => (
             <button
               key={item.label}
-              onClick={() => handleNav(item.href)}
+              onClick={() => handlePrimaryNav(item.to)}
               className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1.5"
             >
               <item.icon className="h-4 w-4" />
@@ -49,14 +47,51 @@ const Navbar = () => {
             </button>
           ))}
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-4">
           <button
-            onClick={() => handleNav("tests")}
+            onClick={() => handlePrimaryNav("/test")}
             className="bg-accent text-accent-foreground px-5 py-2 rounded-lg text-sm font-semibold hover:bg-accent/90 transition-all shadow-md flex items-center gap-1.5"
           >
             Начать тест
             <ArrowRight className="h-4 w-4" />
           </button>
+          {!user && (
+            <>
+              <button
+                onClick={() => handlePrimaryNav("/login")}
+                className="hidden md:inline-flex text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+              >
+                Вход
+              </button>
+              <button
+                onClick={() => handlePrimaryNav("/register")}
+                className="hidden md:inline-flex text-sm font-semibold text-accent hover:text-accent/90 transition-colors"
+              >
+                Регистрация
+              </button>
+            </>
+          )}
+          {user && (
+            <div className="hidden md:flex items-center gap-3">
+              <button
+                onClick={() => handlePrimaryNav("/profile")}
+                className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+              >
+                {user.name || user.email}
+              </button>
+              <button
+                onClick={() => {
+                  logout();
+                  if (location.pathname !== "/") {
+                    navigate("/");
+                  }
+                }}
+                className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+              >
+                Выйти
+              </button>
+            </div>
+          )}
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
             className="md:hidden text-foreground"
@@ -76,13 +111,48 @@ const Navbar = () => {
           {navItems.map((item) => (
             <button
               key={item.label}
-              onClick={() => handleNav(item.href)}
+              onClick={() => handlePrimaryNav(item.to)}
               className="w-full text-left text-sm font-medium text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2 py-2"
             >
               <item.icon className="h-4 w-4" />
               {item.label}
             </button>
           ))}
+          {!user && (
+            <>
+              <button
+                onClick={() => handlePrimaryNav("/login")}
+                className="w-full text-left text-sm font-medium text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2 py-2"
+              >
+                Вход
+              </button>
+              <button
+                onClick={() => handlePrimaryNav("/register")}
+                className="w-full text-left text-sm font-semibold text-accent hover:text-accent/90 transition-colors flex items-center gap-2 py-2"
+              >
+                Регистрация
+              </button>
+            </>
+          )}
+          {user && (
+            <>
+              <button
+                onClick={() => handlePrimaryNav("/profile")}
+                className="w-full text-left text-sm font-medium text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2 py-2"
+              >
+                Профиль
+              </button>
+              <button
+                onClick={() => {
+                  logout();
+                  handlePrimaryNav("/");
+                }}
+                className="w-full text-left text-sm font-medium text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2 py-2"
+              >
+                Выйти
+              </button>
+            </>
+          )}
         </motion.div>
       )}
     </motion.nav>

@@ -1,10 +1,12 @@
 import { motion } from "framer-motion";
 import { ArrowRight, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { scrollToSection } from "@/lib/scroll";
+import { useNavigate } from "react-router-dom";
 import heroBg from "@/assets/hero-bg.jpg";
 
 const HeroSection = () => {
+  const navigate = useNavigate();
+
   return (
     <section className="relative min-h-[90vh] flex items-center overflow-hidden">
       <div className="absolute inset-0">
@@ -54,7 +56,7 @@ const HeroSection = () => {
               variant="hero"
               size="lg"
               className="text-base px-8 py-6 rounded-xl"
-              onClick={() => scrollToSection("tests")}
+              onClick={() => navigate("/test")}
             >
               Пройти тест
               <ArrowRight className="ml-2 h-5 w-5" />
@@ -63,7 +65,7 @@ const HeroSection = () => {
               variant="hero-outline"
               size="lg"
               className="text-base px-8 py-6 rounded-xl"
-              onClick={() => scrollToSection("about")}
+              onClick={() => navigate("/blog")}
             >
               Узнать больше
             </Button>

@@ -1,0 +1,62 @@
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
+import { ArrowRight, Calendar } from "lucide-react";
+import { blogSlugMap } from "./BlogPost";
+
+const articlesList = Object.entries(blogSlugMap).map(([title, slug]) => ({
+  title,
+  slug,
+}));
+
+const BlogPage = () => {
+  const navigate = useNavigate();
+
+  return (
+    <div className="min-h-screen bg-background">
+      <Navbar />
+      <main className="pt-24 pb-16">
+        <div className="container mx-auto px-4 max-w-4xl">
+          <div className="mb-10 text-center">
+            <span className="text-accent font-semibold text-sm uppercase tracking-wider">Блог</span>
+            <h1 className="font-display text-4xl md:text-5xl font-bold text-foreground mt-3 mb-4">
+              Полезные материалы о карьере и образовании
+            </h1>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              Подборка статей, которые помогут с выбором профессии, вуза и развитием ключевых навыков.
+            </p>
+          </div>
+
+          <div className="space-y-4">
+            {articlesList.map((article, index) => (
+              <motion.button
+                key={article.slug}
+                onClick={() => navigate(`/blog/${article.slug}`)}
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.05 }}
+                className="w-full text-left flex items-center gap-4 p-4 rounded-xl border border-border hover:border-accent hover:bg-accent/5 transition-all group"
+              >
+                <div className="flex-1">
+                  <div className="flex items-center gap-2 text-xs text-muted-foreground mb-1.5">
+                    <Calendar className="h-3.5 w-3.5" />
+                    <span>Подборка от CPHelper</span>
+                  </div>
+                  <h2 className="font-display text-lg font-bold text-foreground group-hover:text-accent transition-colors">
+                    {article.title}
+                  </h2>
+                </div>
+                <ArrowRight className="h-5 w-5 text-muted-foreground group-hover:text-accent transition-colors" />
+              </motion.button>
+            ))}
+          </div>
+        </div>
+      </main>
+      <Footer />
+    </div>
+  );
+};
+
+export default BlogPage;
+
