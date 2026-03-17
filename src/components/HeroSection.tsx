@@ -65,7 +65,7 @@ const HeroSection = () => {
               variant="hero-outline"
               size="lg"
               className="text-base px-8 py-6 rounded-xl"
-              onClick={() => navigate("/blog")}
+              onClick={() => navigate("/about")}
             >
               Узнать больше
             </Button>

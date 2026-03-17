@@ -18,6 +18,7 @@ import CreatePostPage from "./pages/CreatePostPage";
 import CustomTestPage from "./pages/CustomTestPage";
 import CustomPostPage from "./pages/CustomPostPage";
 import SettingsPage from "./pages/SettingsPage";
+import AboutPage from "./pages/AboutPage";
 import { AuthProvider } from "./context/AuthContext";
 
 const queryClient = new QueryClient();
@@ -40,6 +41,7 @@ const App = () => (
             <Route path="/blog/:slug" element={<BlogPost />} />
             <Route path="/blog/custom/:id" element={<CustomPostPage />} />
             <Route path="/news" element={<NewsPage />} />
+            <Route path="/about" element={<AboutPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/profile" element={<ProfilePage />} />

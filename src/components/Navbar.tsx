@@ -17,7 +17,7 @@ const navItems = [
   { label: "Тесты", to: "/test", icon: FlaskConical },
   { label: "Блог", to: "/blog", icon: BookOpen },
   { label: "Новости", to: "/news", icon: Newspaper },
-  { label: "О нас", to: "/", icon: Users },
+  { label: "О нас", to: "/about", icon: Users },
 ];
 
 const Navbar = () => {
