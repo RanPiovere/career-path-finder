@@ -14,6 +14,7 @@ import {
   Users,
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 
 const AboutPage = () => {
   const navigate = useNavigate();
@@ -95,127 +96,150 @@ const AboutPage = () => {
             </Card>
           </section>
 
-          <section className="space-y-6">
+          <motion.section
+            className="space-y-6"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            variants={{
+              hidden: { opacity: 0, y: 20 },
+              visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+            }}
+          >
             <h3 className="font-display text-2xl font-bold text-foreground">
               Наши ценности
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <Card className="border border-accent/30 bg-card/90 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-lg">
-                <CardContent className="pt-6 space-y-3">
-                  <h4 className="font-display text-base font-semibold text-foreground">Осознанность</h4>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    Мы верим в силу осознанных решений и помогаем пользователям видеть полный контекст перед тем, как
-                    выбирать направление.
-                  </p>
-                </CardContent>
-              </Card>
-              <Card className="border border-border/60 bg-card/90 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-lg">
-                <CardContent className="pt-6 space-y-3">
-                  <h4 className="font-display text-base font-semibold text-foreground">Доступность</h4>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    Платформа остаётся простой и понятной: не нужно быть экспертом в HR или аналитике, чтобы получить
-                    пользу от наших инструментов.
-                  </p>
-                </CardContent>
-              </Card>
-              <Card className="border border-border/60 bg-card/90 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-lg">
-                <CardContent className="pt-6 space-y-3">
-                  <h4 className="font-display text-base font-semibold text-foreground">Развитие</h4>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    Мы поддерживаем непрерывное обучение и стремление пробовать новое — как в карьере, так и в
-                    продукте.
-                  </p>
-                </CardContent>
-              </Card>
-              <Card className="border border-border/60 bg-card/90 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-lg">
-                <CardContent className="pt-6 space-y-3">
-                  <h4 className="font-display text-base font-semibold text-foreground">Практичность</h4>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    Каждый блок платформы должен приводить к понятному следующему шагу, а не оставлять пользователя с
-                    абстрактными выводами.
-                  </p>
-                </CardContent>
-              </Card>
-              <Card className="border border-border/60 bg-card/90 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-lg">
-                <CardContent className="pt-6 space-y-3">
-                  <h4 className="font-display text-base font-semibold text-foreground">Персонализация</h4>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    У каждого свой маршрут. Мы учитываем ответы, интересы и поведение, чтобы рекомендации были ближе к
-                    реальности пользователя.
-                  </p>
-                </CardContent>
-              </Card>
+              {[
+                {
+                  title: "Осознанность",
+                  text: "Мы верим в силу осознанных решений и помогаем пользователям видеть полный контекст перед тем, как выбирать направление.",
+                  accent: true,
+                },
+                {
+                  title: "Доступность",
+                  text: "Платформа остаётся простой и понятной: не нужно быть экспертом в HR или аналитике, чтобы получить пользу от наших инструментов.",
+                },
+                {
+                  title: "Развитие",
+                  text: "Мы поддерживаем непрерывное обучение и стремление пробовать новое — как в карьере, так и в продукте.",
+                },
+                {
+                  title: "Практичность",
+                  text: "Каждый блок платформы приводит к понятному следующему шагу, а не оставляет пользователя с абстрактными выводами.",
+                },
+                {
+                  title: "Персонализация",
+                  text: "У каждого свой маршрут. Мы учитываем ответы, интересы и поведение, чтобы рекомендации были ближе к реальности пользователя.",
+                },
+              ].map((value, index) => (
+                <motion.div
+                  key={value.title}
+                  className="h-full"
+                  initial={{ opacity: 0, y: 16 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.3 }}
+                  transition={{ duration: 0.4, delay: 0.05 * index }}
+                  whileHover={{
+                    y: -6,
+                    scale: 1.01,
+                    boxShadow: "0 18px 45px rgba(15,23,42,0.18)",
+                  }}
+                >
+                  <Card
+                    className={
+                      value.accent
+                        ? "border border-accent/40 bg-card/95 relative overflow-hidden"
+                        : "border border-border/60 bg-card/95 relative overflow-hidden"
+                    }
+                  >
+                    <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover/card:opacity-100 bg-[radial-gradient(circle_at_top,_rgba(129,140,248,0.18),transparent_55%)]" />
+                    <CardContent className="group/card relative pt-6 space-y-3">
+                      <div className="h-1 w-10 rounded-full bg-accent/70" />
+                      <h4 className="font-display text-base font-semibold text-foreground">
+                        {value.title}
+                      </h4>
+                      <p className="text-sm text-muted-foreground leading-relaxed">
+                        {value.text}
+                      </p>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              ))}
             </div>
-          </section>
+          </motion.section>
 
-          <section className="space-y-6">
+          <motion.section
+            className="space-y-6"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            variants={{
+              hidden: { opacity: 0, y: 20 },
+              visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+            }}
+          >
             <h3 className="font-display text-2xl font-bold text-foreground">
               Что мы предлагаем
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
-              <Card className="h-full border border-border/70 bg-card/95 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-lg">
-                <CardContent className="pt-6 space-y-4">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-accent/10 text-accent">
-                    <Compass className="h-5 w-5" />
-                  </div>
-                  <h4 className="font-display text-base font-semibold text-foreground">Карьерные тесты</h4>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    Тесты, которые помогают определить интересы, склонности и сильные стороны без сложной терминологии.
-                  </p>
-                </CardContent>
-              </Card>
-              <Card className="h-full border border-border/70 bg-card/95 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-lg">
-                <CardContent className="pt-6 space-y-4">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-accent/10 text-accent">
-                    <FileText className="h-5 w-5" />
-                  </div>
-                  <h4 className="font-display text-base font-semibold text-foreground">Блог и статьи</h4>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    Подборки материалов о профессиях, индустриях, soft и hard skills, карьерных поворотах и учебе.
-                  </p>
-                </CardContent>
-              </Card>
-              <Card className="h-full border border-border/70 bg-card/95 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-lg">
-                <CardContent className="pt-6 space-y-4">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-accent/10 text-accent">
-                    <Target className="h-5 w-5" />
-                  </div>
-                  <h4 className="font-display text-base font-semibold text-foreground">
-                    Персональные рекомендации
-                  </h4>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    Подсказки по направлениям, профессиям и шагам развития, основанные на ваших ответах и интересах.
-                  </p>
-                </CardContent>
-              </Card>
-              <Card className="h-full border border-border/70 bg-card/95 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-lg">
-                <CardContent className="pt-6 space-y-4">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-accent/10 text-accent">
-                    <Layers className="h-5 w-5" />
-                  </div>
-                  <h4 className="font-display text-base font-semibold text-foreground">
-                    Собственный контент
-                  </h4>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    Возможность создавать свои тесты и статьи, делиться опытом и строить собственный карьерный
-                    трекер.
-                  </p>
-                </CardContent>
-              </Card>
-              <Card className="h-full border border-border/70 bg-card/95 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-lg">
-                <CardContent className="pt-6 space-y-4">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-accent/10 text-accent">
-                    <LineChart className="h-5 w-5" />
-                  </div>
-                  <h4 className="font-display text-base font-semibold text-foreground">Аналитика и развитие</h4>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    Обзор прогресса и ключевых шагов, которые помогают двигаться к выбранным целям и корректировать
-                    маршрут.
-                  </p>
-                </CardContent>
-              </Card>
+              {[
+                {
+                  icon: Compass,
+                  title: "Карьерные тесты",
+                  text: "Тесты, которые помогают определить интересы, склонности и сильные стороны без сложной терминологии.",
+                },
+                {
+                  icon: FileText,
+                  title: "Блог и статьи",
+                  text: "Подборки материалов о профессиях, индустриях, soft и hard skills, карьерных поворотах и учебе.",
+                },
+                {
+                  icon: Target,
+                  title: "Персональные рекомендации",
+                  text: "Подсказки по направлениям, профессиям и шагам развития, основанные на ваших ответах и интересах.",
+                },
+                {
+                  icon: Layers,
+                  title: "Собственный контент",
+                  text: "Возможность создавать свои тесты и статьи, делиться опытом и строить собственный карьерный трекер.",
+                },
+                {
+                  icon: LineChart,
+                  title: "Аналитика и развитие",
+                  text: "Обзор прогресса и ключевых шагов, которые помогают двигаться к выбранным целям и корректировать маршрут.",
+                },
+              ].map((feature, index) => (
+                <motion.div
+                  key={feature.title}
+                  className="h-full"
+                  initial={{ opacity: 0, y: 18 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.3 }}
+                  transition={{ duration: 0.4, delay: 0.06 * index }}
+                  whileHover={{
+                    y: -6,
+                    scale: 1.02,
+                    boxShadow: "0 20px 55px rgba(15,23,42,0.22)",
+                  }}
+                >
+                  <Card className="h-full border border-border/70 bg-card/95 relative overflow-hidden">
+                    <CardContent className="pt-6 pb-6 space-y-4">
+                      <div className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-accent/10 text-accent transform transition-transform duration-200 group-hover/card:-translate-y-0.5">
+                        <feature.icon className="h-5 w-5" />
+                      </div>
+                      <h4 className="font-display text-base font-semibold text-foreground">
+                        {feature.title}
+                      </h4>
+                      <p className="text-sm text-muted-foreground leading-relaxed">
+                        {feature.text}
+                      </p>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              ))}
             </div>
-          </section>
+          </motion.section>
 
           <section className="space-y-6">
             <h3 className="font-display text-2xl font-bold text-foreground">
