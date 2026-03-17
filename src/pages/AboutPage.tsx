@@ -2,7 +2,17 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Compass, FileText, Sparkles, Users } from "lucide-react";
+import {
+  Activity,
+  Compass,
+  FileText,
+  Globe2,
+  Layers,
+  LineChart,
+  Sparkles,
+  Target,
+  Users,
+} from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 const AboutPage = () => {
@@ -23,70 +33,127 @@ const AboutPage = () => {
                 Помогаем найти свой карьерный путь
               </h1>
               <p className="text-muted-foreground text-base md:text-lg leading-relaxed">
-                Career Path Finder — это платформа, которая помогает людям определить свои сильные стороны,
-                интересы и выбрать подходящее направление в карьере.
+                Career Path Finder — цифровая платформа, которая помогает людям лучше понять себя, свои интересы и
+                сильные стороны, чтобы сделать осознанный выбор направления в карьере.
               </p>
               <div className="flex flex-wrap gap-4">
                 <Button size="lg" onClick={() => navigate("/test")}>
                   Пройти тест
+                </Button>
+                <Button variant="outline" size="lg" onClick={() => navigate("/blog")}>
+                  Читать статьи
                 </Button>
               </div>
             </div>
           </div>
         </section>
 
-        <section className="container mx-auto px-4 py-12 md:py-16 space-y-12">
-          <div className="max-w-3xl space-y-4">
-            <h2 className="font-display text-2xl md:text-3xl font-bold text-foreground">
-              О проекте
-            </h2>
-            <p className="text-muted-foreground leading-relaxed text-base md:text-lg">
-              Career Path Finder создан для того, чтобы упростить процесс выбора профессии и помочь пользователям
-              лучше понять себя. Мы объединяем тесты, статьи и аналитику, чтобы дать максимально полезные
-              рекомендации и поддержать вас на каждом шаге карьерного пути.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
-            <div className="md:col-span-2 space-y-4">
-              <h3 className="font-display text-xl md:text-2xl font-bold text-foreground">
-                Наша миссия
-              </h3>
+        <section className="container mx-auto px-4 py-12 md:py-16 space-y-16">
+          <section className="grid grid-cols-1 md:grid-cols-2 gap-10 items-start">
+            <div className="space-y-4">
+              <h2 className="font-display text-2xl md:text-3xl font-bold text-foreground">
+                О платформе
+              </h2>
+              <p className="text-muted-foreground leading-relaxed text-base md:text-lg">
+                Career Path Finder объединяет карьерные тесты, аналитические инструменты и образовательный контент.
+                Мы помогаем пользователям разобраться в себе, понять, какие направления им ближе, и увидеть реальные
+                шаги для развития.
+              </p>
               <p className="text-muted-foreground leading-relaxed">
-                Мы стремимся сделать процесс выбора карьеры простым, понятным и доступным для каждого. Наша цель —
-                помочь людям принимать осознанные решения и развиваться в том, что им действительно подходит.
-                Независимо от того, только вы начинаете путь или хотите сменить направление, мы хотим быть вашим
-                надежным навигатором в мире профессий.
+                Платформа создавалась как ответ на типичный запрос: «Я не знаю, чем хочу заниматься». Мы аккуратно
+                переводим сложные карьерные решения в понятные шаги, опираясь на вопросы, результаты тестов и
+                качественные материалы.
+              </p>
+              <p className="text-muted-foreground leading-relaxed">
+                Career Path Finder находится на стыке профориентации, карьерной аналитики и образовательной
+                экосистемы. Это не разовый тест, а место, куда можно возвращаться, чтобы сверяться со своим курсом и
+                планировать дальнейшие шаги.
               </p>
             </div>
-            <Card className="bg-card/80 border-dashed">
-              <CardContent className="pt-6 space-y-3">
-                <h4 className="font-display text-lg font-semibold text-foreground">
-                  Почему мы это делаем
-                </h4>
-                <p className="text-muted-foreground text-sm leading-relaxed">
-                  Карьерные решения влияют на качество жизни. Мы верим, что доступ к понятным инструментам и
-                  информации помогает сделать этот выбор увереннее и спокойнее.
+            <Card className="bg-card/80">
+              <CardContent className="pt-6 space-y-4">
+                <h3 className="font-display text-xl font-semibold text-foreground">
+                  Наша миссия
+                </h3>
+                <p className="text-muted-foreground leading-relaxed text-sm md:text-base">
+                  Мы хотим, чтобы выбор профессии перестал быть случайным или основанным только на мнении окружающих.
+                  Наша миссия — дать каждому человеку понятные инструменты для осознанного карьерного выбора и помочь
+                  строить путь, в котором есть смысл, интерес и развитие.
+                </p>
+                <p className="text-muted-foreground leading-relaxed text-sm md:text-base">
+                  Мы соединяем самопознание, аналитику рынка и образовательные возможности, чтобы пользователи могли
+                  принимать решения не вслепую, а с опорой на данные и собственные ценности.
                 </p>
               </CardContent>
             </Card>
-          </div>
+          </section>
+
+          <section className="space-y-6">
+            <h3 className="font-display text-2xl font-bold text-foreground">
+              Наши ценности
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <Card>
+                <CardContent className="pt-6 space-y-2">
+                  <h4 className="font-display text-base font-semibold text-foreground">Осознанность</h4>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    Мы верим в силу осознанных решений и помогаем пользователям видеть полный контекст перед тем, как
+                    выбирать направление.
+                  </p>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardContent className="pt-6 space-y-2">
+                  <h4 className="font-display text-base font-semibold text-foreground">Доступность</h4>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    Платформа остаётся простой и понятной: не нужно быть экспертом в HR или аналитике, чтобы получить
+                    пользу от наших инструментов.
+                  </p>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardContent className="pt-6 space-y-2">
+                  <h4 className="font-display text-base font-semibold text-foreground">Развитие</h4>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    Мы поддерживаем непрерывное обучение и стремление пробовать новое — как в карьере, так и в
+                    продукте.
+                  </p>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardContent className="pt-6 space-y-2">
+                  <h4 className="font-display text-base font-semibold text-foreground">Практичность</h4>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    Каждый блок платформы должен приводить к понятному следующему шагу, а не оставлять пользователя с
+                    абстрактными выводами.
+                  </p>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardContent className="pt-6 space-y-2">
+                  <h4 className="font-display text-base font-semibold text-foreground">Персонализация</h4>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    У каждого свой маршрут. Мы учитываем ответы, интересы и поведение, чтобы рекомендации были ближе к
+                    реальности пользователя.
+                  </p>
+                </CardContent>
+              </Card>
+            </div>
+          </section>
 
           <section className="space-y-6">
             <h3 className="font-display text-2xl font-bold text-foreground">
               Что мы предлагаем
             </h3>
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
               <Card className="h-full">
                 <CardContent className="pt-6 space-y-3">
                   <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-accent/10 text-accent">
                     <Compass className="h-5 w-5" />
                   </div>
-                  <h4 className="font-display text-base font-semibold text-foreground">
-                    Тесты
-                  </h4>
+                  <h4 className="font-display text-base font-semibold text-foreground">Карьерные тесты</h4>
                   <p className="text-sm text-muted-foreground leading-relaxed">
-                    Интерактивные тесты, которые помогают определить ваши склонности и интересы.
+                    Тесты, которые помогают определить интересы, склонности и сильные стороны без сложной терминологии.
                   </p>
                 </CardContent>
               </Card>
@@ -95,61 +162,245 @@ const AboutPage = () => {
                   <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-accent/10 text-accent">
                     <FileText className="h-5 w-5" />
                   </div>
-                  <h4 className="font-display text-base font-semibold text-foreground">
-                    Блог
-                  </h4>
+                  <h4 className="font-display text-base font-semibold text-foreground">Блог и статьи</h4>
                   <p className="text-sm text-muted-foreground leading-relaxed">
-                    Статьи о профессиях, развитии и карьерных возможностях, написанные простым языком.
+                    Подборки материалов о профессиях, индустриях, soft и hard skills, карьерных поворотах и учебе.
                   </p>
                 </CardContent>
               </Card>
               <Card className="h-full">
                 <CardContent className="pt-6 space-y-3">
                   <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-accent/10 text-accent">
-                    <Sparkles className="h-5 w-5" />
+                    <Target className="h-5 w-5" />
                   </div>
                   <h4 className="font-display text-base font-semibold text-foreground">
-                    Персонализация
+                    Персональные рекомендации
                   </h4>
                   <p className="text-sm text-muted-foreground leading-relaxed">
-                    Рекомендации на основе ваших ответов и активности, чтобы вы могли двигаться по своему пути.
+                    Подсказки по направлениям, профессиям и шагам развития, основанные на ваших ответах и интересах.
                   </p>
                 </CardContent>
               </Card>
               <Card className="h-full">
                 <CardContent className="pt-6 space-y-3">
                   <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-accent/10 text-accent">
-                    <Users className="h-5 w-5" />
+                    <Layers className="h-5 w-5" />
                   </div>
                   <h4 className="font-display text-base font-semibold text-foreground">
-                    Сообщество
+                    Собственный контент
                   </h4>
                   <p className="text-sm text-muted-foreground leading-relaxed">
-                    Возможность делиться своими тестами и опытом, вдохновляя других на поиск своего пути.
+                    Возможность создавать свои тесты и статьи, делиться опытом и строить собственный карьерный
+                    трекер.
+                  </p>
+                </CardContent>
+              </Card>
+              <Card className="h-full">
+                <CardContent className="pt-6 space-y-3">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-accent/10 text-accent">
+                    <LineChart className="h-5 w-5" />
+                  </div>
+                  <h4 className="font-display text-base font-semibold text-foreground">Аналитика и развитие</h4>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    Обзор прогресса и ключевых шагов, которые помогают двигаться к выбранным целям и корректировать
+                    маршрут.
                   </p>
                 </CardContent>
               </Card>
             </div>
           </section>
 
-          <section className="space-y-4">
+          <section className="space-y-6">
             <h3 className="font-display text-2xl font-bold text-foreground">
-              Почему стоит использовать Career Path Finder
+              Как работает платформа
             </h3>
-            <ul className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm text-muted-foreground">
-              <li className="rounded-xl bg-muted/60 px-4 py-3">
-                Простота использования — интуитивный интерфейс и понятные шаги.
-              </li>
-              <li className="rounded-xl bg-muted/60 px-4 py-3">
-                Персонализированные рекомендации на основе ваших ответов.
-              </li>
-              <li className="rounded-xl bg-muted/60 px-4 py-3">
-                Возможность создавать свой контент: тесты и статьи.
-              </li>
-              <li className="rounded-xl bg-muted/60 px-4 py-3">
-                Доступность в любое время — все инструменты всегда под рукой.
-              </li>
-            </ul>
+            <div className="grid grid-cols-1 md:grid-cols-5 gap-4 text-sm text-muted-foreground">
+              <div className="rounded-xl bg-muted/60 px-4 py-4">
+                <div className="mb-1 text-xs font-semibold text-accent">Шаг 1</div>
+                <p>Вы проходите один или несколько карьерных тестов и отвечаете на вопросы о себе.</p>
+              </div>
+              <div className="rounded-xl bg-muted/60 px-4 py-4">
+                <div className="mb-1 text-xs font-semibold text-accent">Шаг 2</div>
+                <p>Получаете структурированные результаты и видите, какие направления вам ближе.</p>
+              </div>
+              <div className="rounded-xl bg-muted/60 px-4 py-4">
+                <div className="mb-1 text-xs font-semibold text-accent">Шаг 3</div>
+                <p>Изучаете статьи, истории и материалы по выбранным областям.</p>
+              </div>
+              <div className="rounded-xl bg-muted/60 px-4 py-4">
+                <div className="mb-1 text-xs font-semibold text-accent">Шаг 4</div>
+                <p>Формируете для себя маршрут: что изучать, какие навыки развивать, что попробовать.</p>
+              </div>
+              <div className="rounded-xl bg-muted/60 px-4 py-4">
+                <div className="mb-1 text-xs font-semibold text-accent">Шаг 5</div>
+                <p>Возвращаетесь на платформу, чтобы дополнять результаты, обновлять план и отслеживать изменения.</p>
+              </div>
+            </div>
+          </section>
+
+          <section className="space-y-6">
+            <h3 className="font-display text-2xl font-bold text-foreground">
+              Кому подходит Career Path Finder
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-muted-foreground">
+              <div className="rounded-xl bg-muted/60 px-4 py-3">
+                Школьникам и абитуриентам, которые выбирают первое направление обучения и хотят понять, какие сферы им
+                ближе.
+              </div>
+              <div className="rounded-xl bg-muted/60 px-4 py-3">
+                Студентам, которые хотят уточнить фокус, подобрать стажировки или спланировать первое место работы.
+              </div>
+              <div className="rounded-xl bg-muted/60 px-4 py-3">
+                Специалистам, задумывающимся о смене сферы и ищущим безопасный способ примерить другие профессии.
+              </div>
+              <div className="rounded-xl bg-muted/60 px-4 py-3">
+                Тем, кто чувствует, что «находится не на своём месте» и хочет понять, в чём их сильные стороны.
+              </div>
+              <div className="rounded-xl bg-muted/60 px-4 py-3">
+                Людям, которые выбирают образовательные программы и хотят сверить их с личными целями и интересами.
+              </div>
+            </div>
+          </section>
+
+          <section className="space-y-6">
+            <h3 className="font-display text-2xl font-bold text-foreground">
+              Почему пользователи выбирают нас
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <Card>
+                <CardContent className="pt-6 space-y-2">
+                  <h4 className="font-display text-base font-semibold text-foreground">Понятный интерфейс</h4>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    Простые шаги, ясные результаты и дружелюбный язык вместо перегруженных отчётов.
+                  </p>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardContent className="pt-6 space-y-2">
+                  <h4 className="font-display text-base font-semibold text-foreground">
+                    Персонализированный подход
+                  </h4>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    Мы учитываем ваши ответы, а не подстраиваем вас под заранее заданные шаблоны.
+                  </p>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardContent className="pt-6 space-y-2">
+                  <h4 className="font-display text-base font-semibold text-foreground">
+                    Сочетание тестов и контента
+                  </h4>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    Результаты сразу подкрепляются статьями и практическими материалами, чтобы не останавливаться на
+                    теории.
+                  </p>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardContent className="pt-6 space-y-2">
+                  <h4 className="font-display text-base font-semibold text-foreground">
+                    Возможность создавать своё
+                  </h4>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    Пользователи могут делиться тестами и опытом, расширяя картину карьерных маршрутов.
+                  </p>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardContent className="pt-6 space-y-2">
+                  <h4 className="font-display text-base font-semibold text-foreground">
+                    Современный карьерный подход
+                  </h4>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    Мы учитываем гибридные форматы работы, новые профессии и меняющиеся требования рынка.
+                  </p>
+                </CardContent>
+              </Card>
+            </div>
+          </section>
+
+          <section className="space-y-6">
+            <h3 className="font-display text-2xl font-bold text-foreground">
+              Образовательная экосистема
+            </h3>
+            <p className="text-sm md:text-base text-muted-foreground max-w-3xl">
+              Career Path Finder не привязан к одной платформе обучения. Мы ориентируемся на совместимость с
+              различными образовательными сервисами и помогаем пользователям находить ресурсы, которые поддержат их
+              карьерные цели.
+            </p>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 text-sm">
+              {[
+                "Coursera",
+                "Udemy",
+                "Stepik",
+                "Yandex Practicum",
+                "Skillbox",
+                "GeekBrains",
+              ].map((partner) => (
+                <Card key={partner} className="h-full">
+                  <CardContent className="pt-4 pb-4 flex flex-col items-center justify-center gap-2">
+                    <div className="flex h-8 w-8 items-center justify-center rounded-full bg-muted">
+                      <Globe2 className="h-4 w-4 text-muted-foreground" />
+                    </div>
+                    <span className="font-medium text-foreground text-xs md:text-sm text-center">
+                      {partner}
+                    </span>
+                    <span className="text-[11px] text-muted-foreground text-center">
+                      Курсы и материалы, которые могут дополнить выбранный путь.
+                    </span>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </section>
+
+          <section className="space-y-6">
+            <h3 className="font-display text-2xl font-bold text-foreground">
+              Будущее проекта
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm text-muted-foreground">
+              <Card>
+                <CardContent className="pt-6 space-y-2">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-accent/10 text-accent">
+                    <Activity className="h-4 w-4" />
+                  </div>
+                  <h4 className="font-display text-base font-semibold text-foreground">
+                    Расширение тестов
+                  </h4>
+                  <p className="leading-relaxed">
+                    Мы планируем добавлять новые форматы тестов, которые глубже раскрывают мотивацию, ценности и
+                    рабочие стили пользователей.
+                  </p>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardContent className="pt-6 space-y-2">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-accent/10 text-accent">
+                    <LineChart className="h-4 w-4" />
+                  </div>
+                  <h4 className="font-display text-base font-semibold text-foreground">
+                    Персональные кабинеты
+                  </h4>
+                  <p className="leading-relaxed">
+                    Индивидуальные карьерные профили с историей решений, сохранёнными материалами и планами развития.
+                  </p>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardContent className="pt-6 space-y-2">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-accent/10 text-accent">
+                    <Sparkles className="h-4 w-4" />
+                  </div>
+                  <h4 className="font-display text-base font-semibold text-foreground">
+                    Умные рекомендации
+                  </h4>
+                  <p className="leading-relaxed">
+                    Использование алгоритмов, которые помогают находить релевантные курсы, карьерные треки и истории
+                    по вашим целям и запросам.
+                  </p>
+                </CardContent>
+              </Card>
+            </div>
           </section>
         </section>
 
@@ -159,11 +410,16 @@ const AboutPage = () => {
               Готовы начать свой путь?
             </h3>
             <p className="text-muted-foreground max-w-xl">
-              Пройдите первый тест уже сейчас, чтобы сделать следующий шаг к осознанной и интересной карьере.
+              Пройдите первый тест или изучите статьи, чтобы сделать следующий шаг к осознанной и интересной карьере.
             </p>
-            <Button size="lg" onClick={() => navigate("/test")}>
-              Начать тест
-            </Button>
+            <div className="flex flex-wrap gap-3 justify-center">
+              <Button size="lg" onClick={() => navigate("/test")}>
+                Пройти тест
+              </Button>
+              <Button variant="outline" size="lg" onClick={() => navigate("/blog")}>
+                Перейти к статьям
+              </Button>
+            </div>
           </div>
         </section>
       </main>
@@ -173,4 +429,5 @@ const AboutPage = () => {
 };
 
 export default AboutPage;
+
 
