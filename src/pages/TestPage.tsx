@@ -140,11 +140,11 @@ const TestPage = () => {
       <main className="pt-24 pb-16">
         <div className="container mx-auto px-4 max-w-2xl">
           <button
-            onClick={() => navigate("/")}
+            onClick={() => navigate("/test")}
             className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors mb-8"
           >
             <ArrowLeft className="h-4 w-4" />
-            Назад
+            Назад к тестам
           </button>
 
           <motion.div
@@ -219,7 +219,7 @@ const TestPage = () => {
                 <Button variant="hero" size="lg" onClick={restart}>
                   Пройти заново
                 </Button>
-                <Button variant="outline" size="lg" onClick={() => navigate("/")}>
+                <Button variant="outline" size="lg" onClick={() => navigate("/test")}>
                   Другие тесты
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>

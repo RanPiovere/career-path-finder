@@ -17,6 +17,7 @@ import CreateTestPage from "./pages/CreateTestPage";
 import CreatePostPage from "./pages/CreatePostPage";
 import CustomTestPage from "./pages/CustomTestPage";
 import CustomPostPage from "./pages/CustomPostPage";
+import SettingsPage from "./pages/SettingsPage";
 import { AuthProvider } from "./context/AuthContext";
 
 const queryClient = new QueryClient();
@@ -42,6 +43,7 @@ const App = () => (
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/profile" element={<ProfilePage />} />
+            <Route path="/settings" element={<SettingsPage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>

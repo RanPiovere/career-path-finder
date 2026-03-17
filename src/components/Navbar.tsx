@@ -1,8 +1,17 @@
 import { motion } from "framer-motion";
-import { ArrowRight, BookOpen, Newspaper, FlaskConical, Users, Menu, X } from "lucide-react";
+import { ArrowRight, BookOpen, Newspaper, FlaskConical, Users, Menu, X, LogOut, Settings, User } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useState } from "react";
 import { useAuth } from "@/context/AuthContext";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const navItems = [
   { label: "Тесты", to: "/test", icon: FlaskConical },
@@ -73,23 +82,53 @@ const Navbar = () => {
           )}
           {user && (
             <div className="hidden md:flex items-center gap-3">
-              <button
-                onClick={() => handlePrimaryNav("/profile")}
-                className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-              >
-                {user.name || user.email}
-              </button>
-              <button
-                onClick={() => {
-                  logout();
-                  if (location.pathname !== "/") {
-                    navigate("/");
-                  }
-                }}
-                className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-              >
-                Выйти
-              </button>
+              <DropdownMenu>
+                <DropdownMenuTrigger className="outline-none">
+                  <div className="flex items-center gap-2 rounded-full bg-muted px-2 py-1.5 hover:bg-muted/80 transition-colors">
+                    <Avatar className="h-8 w-8">
+                      <AvatarFallback className="bg-accent/10 text-accent text-xs font-semibold">
+                        {(user.name || user.email)
+                          .split(" ")
+                          .map((part) => part[0])
+                          .join("")
+                          .toUpperCase()
+                          .slice(0, 2)}
+                      </AvatarFallback>
+                    </Avatar>
+                    <span className="text-sm font-medium text-muted-foreground max-w-[120px] truncate">
+                      {user.name || user.email}
+                    </span>
+                  </div>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-48">
+                  <DropdownMenuLabel>Аккаунт</DropdownMenuLabel>
+                  <DropdownMenuItem
+                    onClick={() => handlePrimaryNav("/profile")}
+                    className="flex items-center gap-2"
+                  >
+                    <User className="h-4 w-4" />
+                    Личный кабинет
+                  </DropdownMenuItem>
+                  <DropdownMenuItem
+                    onClick={() => handlePrimaryNav("/settings")}
+                    className="flex items-center gap-2"
+                  >
+                    <Settings className="h-4 w-4" />
+                    Настройки
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem
+                    onClick={() => {
+                      logout();
+                      handlePrimaryNav("/");
+                    }}
+                    className="flex items-center gap-2 text-destructive"
+                  >
+                    <LogOut className="h-4 w-4" />
+                    Выйти
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
             </div>
           )}
           <button
@@ -141,6 +180,12 @@ const Navbar = () => {
                 className="w-full text-left text-sm font-medium text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2 py-2"
               >
                 Профиль
+              </button>
+              <button
+                onClick={() => handlePrimaryNav("/settings")}
+                className="w-full text-left text-sm font-medium text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2 py-2"
+              >
+                Настройки
               </button>
               <button
                 onClick={() => {
