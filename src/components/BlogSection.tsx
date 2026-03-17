@@ -50,7 +50,7 @@ const BlogSection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="flex items-end justify-between mb-16"
+          className="flex flex-col md:flex-row md:items-end md:justify-between mb-16 gap-4"
         >
           <div>
             <span className="text-accent font-semibold text-sm uppercase tracking-wider">Блог</span>
@@ -59,10 +59,11 @@ const BlogSection = () => {
             </h2>
           </div>
           <button
-            onClick={() => navigate("/blog/professii-budushchego")}
-            className="hidden md:flex items-center gap-2 text-accent font-semibold hover:gap-3 transition-all"
+            onClick={() => navigate("/blog")}
+            className="inline-flex items-center gap-2 text-accent font-semibold hover:gap-3 transition-all text-sm md:text-base"
           >
-            Все статьи <ArrowRight className="h-5 w-5" />
+            Все статьи
+            <ArrowRight className="h-5 w-5" />
           </button>
         </motion.div>
 

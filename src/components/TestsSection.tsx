@@ -62,15 +62,24 @@ const TestsSection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="text-center mb-16"
+          className="mb-16 flex flex-col items-center md:flex-row md:items-end md:justify-between gap-4"
         >
-          <span className="text-accent font-semibold text-sm uppercase tracking-wider">Тесты</span>
-          <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground mt-3 mb-4">
-            Пройди тесты и узнай себя
-          </h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Научно обоснованные тесты помогут определить твои сильные стороны и подходящие профессии.
-          </p>
+          <div className="text-center md:text-left">
+            <span className="text-accent font-semibold text-sm uppercase tracking-wider">Тесты</span>
+            <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground mt-3 mb-4">
+              Пройди тесты и узнай себя
+            </h2>
+            <p className="text-muted-foreground text-lg max-w-2xl md:max-w-xl">
+              Научно обоснованные тесты помогут определить твои сильные стороны и подходящие профессии.
+            </p>
+          </div>
+          <button
+            onClick={() => navigate("/test")}
+            className="inline-flex items-center gap-2 text-accent font-semibold hover:gap-3 transition-all text-sm md:text-base"
+          >
+            Все тесты
+            <ArrowRight className="h-4 w-4" />
+          </button>
         </motion.div>
 
         <motion.div

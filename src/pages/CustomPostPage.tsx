@@ -1,16 +1,25 @@
+import { useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowLeft, Calendar } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
-import { getPostById } from "@/services/postService";
+import { getPostById, registerPostVisit } from "@/services/postService";
+import { getOrCreateVisitorId } from "@/services/visitService";
 
 const CustomPostPage = () => {
   const params = useParams();
   const navigate = useNavigate();
   const id = params.id || "";
   const post = getPostById(id);
+
+  useEffect(() => {
+    if (id) {
+      const visitorId = getOrCreateVisitorId();
+      registerPostVisit(id, visitorId);
+    }
+  }, [id]);
 
   if (!post) {
     return (

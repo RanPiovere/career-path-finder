@@ -1,11 +1,12 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowLeft, ArrowRight, CheckCircle2, Circle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { getTestById } from "@/services/testService";
+import { getTestById, registerTestCompletion, registerTestVisit } from "@/services/testService";
+import { getOrCreateVisitorId } from "@/services/visitService";
 
 const CustomTestPage = () => {
   const params = useParams();
@@ -15,6 +16,13 @@ const CustomTestPage = () => {
 
   const [currentQ, setCurrentQ] = useState(0);
   const [finished, setFinished] = useState(false);
+
+  useEffect(() => {
+    if (id) {
+      const visitorId = getOrCreateVisitorId();
+      registerTestVisit(id, visitorId);
+    }
+  }, [id]);
 
   if (!test) {
     return (
@@ -32,6 +40,8 @@ const CustomTestPage = () => {
       setCurrentQ(currentQ + 1);
     } else {
       setFinished(true);
+      const visitorId = getOrCreateVisitorId();
+      registerTestCompletion(id, visitorId);
     }
   };
 

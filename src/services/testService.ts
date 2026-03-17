@@ -19,6 +19,9 @@ type CustomTest = {
   questions: TestQuestion[];
   authorEmail: string;
   createdAt: string;
+  visitCount: number;
+  completionCount: number;
+  uniqueVisitors: string[];
 };
 
 type NewTestInput = {
@@ -42,7 +45,12 @@ const loadTests = (): CustomTest[] => {
   try {
     const parsed = JSON.parse(raw);
     if (Array.isArray(parsed)) {
-      return parsed;
+      return parsed.map((item) => ({
+        visitCount: 0,
+        completionCount: 0,
+        uniqueVisitors: [],
+        ...item,
+      }));
     }
     return [];
   } catch {
@@ -87,6 +95,9 @@ const createTest = (input: NewTestInput, authorEmail: string): CustomTest => {
     questions,
     authorEmail,
     createdAt: new Date().toISOString(),
+    visitCount: 0,
+    completionCount: 0,
+    uniqueVisitors: [],
   };
   const next = [...tests, test];
   saveTests(next);
@@ -108,6 +119,65 @@ const getTestById = (id: string): CustomTest | null => {
   return tests.find((t) => t.id === id) ?? null;
 };
 
+const registerTestVisit = (id: string, visitorId: string): CustomTest | null => {
+  if (!id || !visitorId) {
+    return null;
+  }
+  const tests = loadTests();
+  const index = tests.findIndex((t) => t.id === id);
+  if (index === -1) {
+    return null;
+  }
+  const test = tests[index];
+  if (!test.uniqueVisitors.includes(visitorId)) {
+    const updated: CustomTest = {
+      ...test,
+      uniqueVisitors: [...test.uniqueVisitors, visitorId],
+      visitCount: test.visitCount + 1,
+    };
+    const next = [...tests];
+    next[index] = updated;
+    saveTests(next);
+    return updated;
+  }
+  return test;
+};
+
+const registerTestCompletion = (id: string, visitorId: string): CustomTest | null => {
+  if (!id || !visitorId) {
+    return null;
+  }
+  const tests = loadTests();
+  const index = tests.findIndex((t) => t.id === id);
+  if (index === -1) {
+    return null;
+  }
+  const test = tests[index];
+  const updated: CustomTest = {
+    ...test,
+    completionCount: test.completionCount + 1,
+  };
+  const next = [...tests];
+  next[index] = updated;
+  saveTests(next);
+  return updated;
+};
+
+const sortTestsByPopularity = (tests: CustomTest[]): CustomTest[] =>
+  [...tests].sort((a, b) => {
+    if (b.visitCount !== a.visitCount) {
+      return b.visitCount - a.visitCount;
+    }
+    return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+  });
+
 export type { CustomTest, TestQuestion, TestOption, NewTestInput };
-export { createTest, getTestsByAuthor, getTestById };
+export {
+  createTest,
+  getTestsByAuthor,
+  getTestById,
+  registerTestVisit,
+  registerTestCompletion,
+  sortTestsByPopularity,
+};
 

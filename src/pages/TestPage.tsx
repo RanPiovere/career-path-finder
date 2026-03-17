@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowLeft, ArrowRight, CheckCircle2, Circle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { getOrCreateVisitorId } from "@/services/visitService";
 
 const testsData: Record<string, {
   title: string;
@@ -91,6 +92,12 @@ const TestPage = () => {
   const [currentQ, setCurrentQ] = useState(0);
   const [answers, setAnswers] = useState<number[]>([]);
   const [finished, setFinished] = useState(false);
+
+  useEffect(() => {
+    if (slug) {
+      getOrCreateVisitorId();
+    }
+  }, [slug]);
 
   if (!test) {
     return (

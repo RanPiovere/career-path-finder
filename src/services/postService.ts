@@ -8,6 +8,8 @@ type CustomPost = {
   imageUrl?: string;
   authorEmail: string;
   createdAt: string;
+   visitCount: number;
+   uniqueVisitors: string[];
 };
 
 type NewPostInput = {
@@ -28,7 +30,11 @@ const loadPosts = (): CustomPost[] => {
   try {
     const parsed = JSON.parse(raw);
     if (Array.isArray(parsed)) {
-      return parsed;
+      return parsed.map((item) => ({
+        visitCount: 0,
+        uniqueVisitors: [],
+        ...item,
+      }));
     }
     return [];
   } catch {
@@ -55,6 +61,8 @@ const createPost = (input: NewPostInput, authorEmail: string): CustomPost => {
     imageUrl: input.imageUrl,
     authorEmail,
     createdAt: new Date().toISOString(),
+    visitCount: 0,
+    uniqueVisitors: [],
   };
   const next = [...posts, post];
   savePosts(next);
@@ -78,6 +86,39 @@ const getPostById = (id: string): CustomPost | null => {
   return posts.find((p) => p.id === id) ?? null;
 };
 
+const registerPostVisit = (id: string, visitorId: string): CustomPost | null => {
+  if (!id || !visitorId) {
+    return null;
+  }
+  const posts = loadPosts();
+  const index = posts.findIndex((p) => p.id === id);
+  if (index === -1) {
+    return null;
+  }
+  const post = posts[index];
+  if (!post.uniqueVisitors.includes(visitorId)) {
+    const updated: CustomPost = {
+      ...post,
+      uniqueVisitors: [...post.uniqueVisitors, visitorId],
+      visitCount: post.visitCount + 1,
+    };
+    const next = [...posts];
+    next[index] = updated;
+    savePosts(next);
+    return updated;
+  }
+  return post;
+};
+
+const sortPostsByPopularity = (posts: CustomPost[]): CustomPost[] =>
+  [...posts].sort((a, b) => {
+    if (b.visitCount !== a.visitCount) {
+      return b.visitCount - a.visitCount;
+    }
+    return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+  });
+
 export type { CustomPost, NewPostInput };
-export { createPost, getPostsByAuthor, getAllPosts, getPostById };
+export { createPost, getPostsByAuthor, getAllPosts, getPostById, registerPostVisit, sortPostsByPopularity };
+
 

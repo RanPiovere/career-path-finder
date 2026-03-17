@@ -6,8 +6,9 @@ import { motion } from "framer-motion";
 import { ArrowRight, Calendar } from "lucide-react";
 import { blogSlugMap } from "./BlogPost";
 import { useAuth } from "@/context/AuthContext";
-import { CustomPost, getAllPosts } from "@/services/postService";
+import { CustomPost, getAllPosts, sortPostsByPopularity } from "@/services/postService";
 import { Button } from "@/components/ui/button";
+import CreationInfoModal from "@/components/CreationInfoModal";
 
 type StaticArticle = {
   title: string;
@@ -23,14 +24,15 @@ const BlogPage = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
   const [customPosts, setCustomPosts] = useState<CustomPost[]>([]);
+  const [showInfo, setShowInfo] = useState(false);
 
   useEffect(() => {
-    setCustomPosts(getAllPosts());
+    setCustomPosts(sortPostsByPopularity(getAllPosts()));
   }, []);
 
   const handleCreateClick = () => {
     if (!user) {
-      navigate("/login", { state: { from: "/blog/create" } });
+      setShowInfo(true);
       return;
     }
     navigate("/blog/create");
@@ -126,6 +128,9 @@ const BlogPage = () => {
                               {post.description}
                             </p>
                           )}
+                          <p className="mt-1 text-xs text-muted-foreground">
+                            Посещений: {post.visitCount}
+                          </p>
                         </div>
                         <ArrowRight className="h-5 w-5 text-muted-foreground group-hover:text-accent transition-colors" />
                       </motion.button>
@@ -137,6 +142,19 @@ const BlogPage = () => {
           </div>
         </div>
       </main>
+      <CreationInfoModal
+        open={showInfo}
+        type="blog"
+        onClose={() => setShowInfo(false)}
+        onLogin={() => {
+          setShowInfo(false);
+          navigate("/login", { state: { from: "/blog/create" } });
+        }}
+        onRegister={() => {
+          setShowInfo(false);
+          navigate("/register", { state: { from: "/blog/create" } });
+        }}
+      />
       <Footer />
     </div>
   );

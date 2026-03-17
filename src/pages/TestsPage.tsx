@@ -5,16 +5,18 @@ import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/context/AuthContext";
-import { CustomTest, getTestsByAuthor } from "@/services/testService";
+import { CustomTest, getTestsByAuthor, sortTestsByPopularity } from "@/services/testService";
+import CreationInfoModal from "@/components/CreationInfoModal";
 
 const TestsPage = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
   const [customTests, setCustomTests] = useState<CustomTest[]>([]);
+  const [showInfo, setShowInfo] = useState(false);
 
   useEffect(() => {
     if (user) {
-      setCustomTests(getTestsByAuthor(user.email));
+      setCustomTests(sortTestsByPopularity(getTestsByAuthor(user.email)));
     } else {
       setCustomTests([]);
     }
@@ -22,7 +24,7 @@ const TestsPage = () => {
 
   const handleCreateClick = () => {
     if (!user) {
-      navigate("/login", { state: { from: "/test/create" } });
+      setShowInfo(true);
       return;
     }
     navigate("/test/create");
@@ -75,9 +77,10 @@ const TestsPage = () => {
                           {test.description}
                         </p>
                       )}
-                      <p className="mt-2 text-xs text-muted-foreground">
-                        Вопросов: {test.questions.length}
-                      </p>
+                      <div className="mt-2 flex items-center justify-between text-xs text-muted-foreground">
+                        <span>Вопросов: {test.questions.length}</span>
+                        <span>Посещений: {test.visitCount}</span>
+                      </div>
                     </button>
                   ))}
                 </div>
@@ -86,6 +89,19 @@ const TestsPage = () => {
           )}
         </div>
       </main>
+      <CreationInfoModal
+        open={showInfo}
+        type="test"
+        onClose={() => setShowInfo(false)}
+        onLogin={() => {
+          setShowInfo(false);
+          navigate("/login", { state: { from: "/test/create" } });
+        }}
+        onRegister={() => {
+          setShowInfo(false);
+          navigate("/register", { state: { from: "/test/create" } });
+        }}
+      />
       <Footer />
     </div>
   );
