@@ -294,59 +294,77 @@ const AboutPage = () => {
           </section>
 
           <section className="space-y-6">
-            <h3 className="font-display text-2xl font-bold text-foreground">
-              Почему пользователи выбирают нас
-            </h3>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <Card className="border border-border/70 bg-card/95 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-lg">
-                <CardContent className="pt-6 space-y-3">
-                  <h4 className="font-display text-base font-semibold text-foreground">Понятный интерфейс</h4>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    Простые шаги, ясные результаты и дружелюбный язык вместо перегруженных отчётов.
-                  </p>
-                </CardContent>
-              </Card>
-              <Card className="border border-border/70 bg-card/95 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-lg">
-                <CardContent className="pt-6 space-y-3">
-                  <h4 className="font-display text-base font-semibold text-foreground">
-                    Персонализированный подход
-                  </h4>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    Мы учитываем ваши ответы, а не подстраиваем вас под заранее заданные шаблоны.
-                  </p>
-                </CardContent>
-              </Card>
-              <Card className="border border-border/70 bg-card/95 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-lg">
-                <CardContent className="pt-6 space-y-3">
-                  <h4 className="font-display text-base font-semibold text-foreground">
-                    Сочетание тестов и контента
-                  </h4>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    Результаты сразу подкрепляются статьями и практическими материалами, чтобы не останавливаться на
-                    теории.
-                  </p>
-                </CardContent>
-              </Card>
-              <Card className="border border-border/70 bg-card/95 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-lg">
-                <CardContent className="pt-6 space-y-3">
-                  <h4 className="font-display text-base font-semibold text-foreground">
-                    Возможность создавать своё
-                  </h4>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    Пользователи могут делиться тестами и опытом, расширяя картину карьерных маршрутов.
-                  </p>
-                </CardContent>
-              </Card>
-              <Card className="border border-border/70 bg-card/95 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-lg">
-                <CardContent className="pt-6 space-y-3">
-                  <h4 className="font-display text-base font-semibold text-foreground">
-                    Современный карьерный подход
-                  </h4>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    Мы учитываем гибридные форматы работы, новые профессии и меняющиеся требования рынка.
-                  </p>
-                </CardContent>
-              </Card>
+            <div className="flex items-center justify-between gap-2">
+              <h3 className="font-display text-2xl font-bold text-foreground">
+                Почему пользователи выбирают нас
+              </h3>
+              <span className="hidden md:inline text-xs text-muted-foreground">
+                Прокрутите вправо, чтобы увидеть больше
+              </span>
+            </div>
+            <div className="relative">
+              <div className="pointer-events-none absolute right-0 top-0 h-full w-16 bg-gradient-to-l from-background to-transparent" />
+              <motion.div
+                className="flex gap-4 overflow-x-auto pb-2 -mx-4 px-4 md:mx-0 md:px-0"
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.5 }}
+              >
+                {[
+                  {
+                    title: "Понятный интерфейс",
+                    text: "Простые шаги, ясные результаты и дружелюбный язык вместо перегруженных отчётов.",
+                    color: "from-sky-500/15 to-indigo-500/5",
+                  },
+                  {
+                    title: "Персонализированный подход",
+                    text: "Мы учитываем ваши ответы, а не подстраиваем вас под заранее заданные шаблоны.",
+                    color: "from-violet-500/15 to-fuchsia-500/5",
+                  },
+                  {
+                    title: "Сочетание тестов и контента",
+                    text: "Результаты подкрепляются статьями и практическими материалами, чтобы не останавливаться на теории.",
+                    color: "from-emerald-500/15 to-teal-500/5",
+                  },
+                  {
+                    title: "Возможность создавать своё",
+                    text: "Пользователи могут делиться тестами и опытом, расширяя картину карьерных маршрутов.",
+                    color: "from-amber-500/15 to-orange-500/5",
+                  },
+                  {
+                    title: "Современный карьерный подход",
+                    text: "Мы учитываем гибридные форматы работы, новые профессии и меняющиеся требования рынка.",
+                    color: "from-rose-500/15 to-pink-500/5",
+                  },
+                ].map((item, index) => (
+                  <motion.div
+                    key={item.title}
+                    className="min-w-[260px] max-w-xs md:min-w-[280px] lg:min-w-[300px]"
+                    whileHover={{
+                      y: -6,
+                      scale: 1.02,
+                      boxShadow: "0 18px 45px rgba(15,23,42,0.18)",
+                    }}
+                    transition={{ duration: 0.25 }}
+                  >
+                    <Card className="h-full border border-border/70 bg-card/95 relative overflow-hidden">
+                      <div
+                        className={`pointer-events-none absolute inset-0 opacity-80 bg-gradient-to-br ${item.color}`}
+                      />
+                      <CardContent className="relative pt-6 pb-6 space-y-3">
+                        <div className="h-1 w-10 rounded-full bg-accent/70" />
+                        <h4 className="font-display text-base font-semibold text-foreground">
+                          {item.title}
+                        </h4>
+                        <p className="text-sm text-muted-foreground leading-relaxed">
+                          {item.text}
+                        </p>
+                      </CardContent>
+                    </Card>
+                  </motion.div>
+                ))}
+              </motion.div>
             </div>
           </section>
 

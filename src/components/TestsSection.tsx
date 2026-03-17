@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Clock, ArrowRight, Brain, Target, Compass, Lightbulb } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import BookmarkButton from "@/components/BookmarkButton";
 
 const tests = [
   {
@@ -73,13 +74,6 @@ const TestsSection = () => {
               Научно обоснованные тесты помогут определить твои сильные стороны и подходящие профессии.
             </p>
           </div>
-          <button
-            onClick={() => navigate("/test")}
-            className="inline-flex items-center gap-2 text-accent font-semibold hover:gap-3 transition-all text-sm md:text-base"
-          >
-            Все тесты
-            <ArrowRight className="h-4 w-4" />
-          </button>
         </motion.div>
 
         <motion.div
@@ -96,6 +90,7 @@ const TestsSection = () => {
               onClick={() => navigate(`/test/${test.slug}`)}
               className={`group relative bg-card rounded-2xl border ${test.borderColor} p-6 cursor-pointer hover:shadow-xl transition-all duration-300 hover:-translate-y-1`}
             >
+              <BookmarkButton itemId={test.slug} title={test.title} itemType="test" />
               <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${test.color} flex items-center justify-center mb-5`}>
                 <test.icon className="h-7 w-7 text-foreground" />
               </div>
